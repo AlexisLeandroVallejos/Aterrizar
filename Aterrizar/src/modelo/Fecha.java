@@ -48,5 +48,6 @@ public class Fecha {
 	public static int esFechaAnterior(Date date1, Date date2) {
 		return date1.compareTo(date2);
 	}
+	//Sacando los archivos demas.
 
 }
