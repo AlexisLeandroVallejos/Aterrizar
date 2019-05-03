@@ -5,8 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import java.util.concurrent.TimeUnit;
-
 import exceptions.FechaInvalidaException;
 
 public class Fecha {
@@ -45,6 +43,10 @@ public class Fecha {
 	public static int diasDeDiferencia(Date date1, Date date2) {
 		long date3 = date2.getTime() - date1.getTime();
 		return (int) (date3 / (1000 * 60 * 60 * 24));
+	}
+
+	public static int esFechaAnterior(Date date1, Date date2) {
+		return date1.compareTo(date2);
 	}
 
 }

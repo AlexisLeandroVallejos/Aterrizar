@@ -89,5 +89,22 @@ public class FechaTest {
 		Assert.assertNotSame(fecha.diasDeDiferencia(date1, date2), 15);
 
 	}
+	
+	@Test
+	public void esFechaAnterior_primeraFechaEsAnteriorALaSegunda() {
+		Date date1 = new Date(2005,4,1);
+		Date date2 = new Date(2007,3,20);
+		Fecha fecha = new Fecha();
+		Assert.assertSame(fecha.esFechaAnterior(date1, date2), -1);
+	}
+	
+	@Test
+	public void esFechaAnterior_primeraFechaEsPosteriorALaSegunda() {
+		Date date1 = new Date(2015,2,14);
+		Date date2 = new Date(2007,8,22);
+		Fecha fecha = new Fecha();
+		Assert.assertSame(fecha.esFechaAnterior(date1, date2), 1);
+	}
+	//TODO: REFACTORIZAR.
 
 }
