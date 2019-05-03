@@ -1,35 +1,33 @@
 package modelo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Fecha {
-	private String fecha;
-	private Date date;
-	
-	public String getFecha() {
-		return fecha;
-	}
+import exceptions.FechaInvalidaException;
 
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
+public class Fecha{
+
+	public static Date convertirAFechaISO8601(String fecha) throws ParseException {
+		Date date = new Date();
+		SimpleDateFormat fechaEnFormatoISO8601 = new SimpleDateFormat("yyyy-MM-dd");
+		date = fechaEnFormatoISO8601.parse(fecha);
+		return date;
 	}
 	
-	public Date getDate() {
+	public static Date convertirAFechaLatinoamericana(String fecha) throws ParseException {
+		Date date = new Date();
+		SimpleDateFormat fechaEnFormatoLatinoamericano = new SimpleDateFormat("dd/MM/yyyy");
+		date = fechaEnFormatoLatinoamericano.parse(fecha);
 		return date;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	
-	public static void convertir(String fecha) {
+	public static Date convertirAFechaNorteamericana(String fecha) throws ParseException {
+		Date date = new Date();
+		SimpleDateFormat fechaEnFormatoNorteamericano = new SimpleDateFormat("MM-dd-yyyy");
+		date = fechaEnFormatoNorteamericano.parse(fecha);
+		return date;
 		
 	}
 
-	
-	
-	
-	
-	
-	
 }
