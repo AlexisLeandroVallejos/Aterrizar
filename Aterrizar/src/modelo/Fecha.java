@@ -3,51 +3,68 @@ package modelo;
 import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-import exceptions.FechaInvalidaException;
-
 public class Fecha {
+	private SimpleDateFormat formatoISO8601 = new SimpleDateFormat("yyyy-MM-dd");
+	private SimpleDateFormat formatoLatinoamericano = new SimpleDateFormat("dd/MM/yyyy");
+	private SimpleDateFormat formatoNorteamericano = new SimpleDateFormat("MM-dd-yyyy");
+	private ArrayList<SimpleDateFormat> formatoFlexible = new ArrayList<SimpleDateFormat>();
 
-	public static Date convertirAFechaISO8601(String fecha) throws ParseException {
+	public ArrayList<SimpleDateFormat> getFormatoFlexible() {
+		return formatoFlexible;
+	}
+
+	public void setFormatoFlexible(ArrayList<SimpleDateFormat> nuevoFormatoFlexible) {
+		formatoFlexible = nuevoFormatoFlexible;
+	}
+
+	public void agregarFormatoFlexible(String formato) {
+		SimpleDateFormat formatoNuevo = new SimpleDateFormat(formato);
+		formatoFlexible.add(formatoNuevo);
+	}
+
+	public Date convertirAFechaISO8601(String fecha) throws ParseException {
 		Date date = new Date();
-		SimpleDateFormat fechaEnFormatoISO8601 = new SimpleDateFormat("yyyy-MM-dd");
-		date = fechaEnFormatoISO8601.parse(fecha);
+		date = formatoISO8601.parse(fecha);
 		return date;
 	}
 
-	public static Date convertirAFechaLatinoamericana(String fecha) throws ParseException {
+	public Date convertirAFechaLatinoamericana(String fecha) throws ParseException {
 		Date date = new Date();
-		SimpleDateFormat fechaEnFormatoLatinoamericano = new SimpleDateFormat("dd/MM/yyyy");
-		date = fechaEnFormatoLatinoamericano.parse(fecha);
+		date = formatoLatinoamericano.parse(fecha);
 		return date;
 	}
 
-	public static Date convertirAFechaNorteamericana(String fecha) throws ParseException {
+	public Date convertirAFechaNorteamericana(String fecha) throws ParseException {
 		Date date = new Date();
-		SimpleDateFormat fechaEnFormatoNorteamericano = new SimpleDateFormat("MM-dd-yyyy");
-		date = fechaEnFormatoNorteamericano.parse(fecha);
+		date = formatoNorteamericano.parse(fecha);
 		return date;
 
 	}
 
 	// TODO: Flexible debe tener varios formatos para usar y comparar.
-	public static Date convertirAFechaFlexible(String fecha) throws ParseException {
-		Date date = new Date();
-		SimpleDateFormat fechaEnFormatoFlexible = new SimpleDateFormat("MMM dd yyyy");
-		date = fechaEnFormatoFlexible.parse(fecha);
-		return date;
+	public void convertirAFechaFlexible(String fecha) throws ParseException {
+		formatoFlexible.stream().map(formato -> {
+			try {
+				return formato.parse(fecha);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				return e;
+			}
+		});
 
 	}
 
-	public static int diasDeDiferencia(Date date1, Date date2) {
+	public int diasDeDiferencia(Date date1, Date date2) {
 		long date3 = date2.getTime() - date1.getTime();
 		return (int) (date3 / (1000 * 60 * 60 * 24));
 	}
 
-	public static int esFechaAnterior(Date date1, Date date2) {
+	public int esFechaAnterior(Date date1, Date date2) {
 		return date1.compareTo(date2);
 	}
-	//Sacando los archivos demas.
+	// Sacando los archivos demas.
 
 }

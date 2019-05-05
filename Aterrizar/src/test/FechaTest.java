@@ -1,6 +1,7 @@
 package test;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.Assert;
@@ -60,59 +61,62 @@ public class FechaTest {
 	public void convertirAFechaFlexible_fechaEnFormatoFlexible() throws ParseException {
 		String stringDeFecha = "Oct 12 2013";
 		Fecha fecha = new Fecha();
+		SimpleDateFormat formatoNuevo = new SimpleDateFormat("MMM dd yyyy");
+		fecha.agregarFormatoFlexible("MMM dd yyyy");
 		fecha.convertirAFechaFlexible(stringDeFecha);
-
+		Assert.assertEquals(fecha.getFormatoFlexible().get(0).parse(stringDeFecha), formatoNuevo.parse(stringDeFecha));
 	}
 
 	@Test(expected = ParseException.class)
-	public void convertirAFechaFlexible_fechaQueNoEstaEnFormatoFlexible() throws ParseException {
-		String stringDeFecha = "Apr-1-2002";
+	public void convertirAFechaFlexible_fechaQueNoEstaEnFormatoFlexible() throws ParseException{
+		String stringDeFecha = "Apr-01-2002";
 		Fecha fecha = new Fecha();
+		fecha.agregarFormatoFlexible("dd/MM/yyyy");
 		fecha.convertirAFechaFlexible(stringDeFecha);
-
-	}
+		fecha.getFormatoFlexible().get(0).parse(stringDeFecha);
+}
 
 	@Test
 	public void diasDeDiferencia_dosFechasQueDanQuinceDiasDeDiferencia() {
-		Date date1 = new Date(1995,12,1);
-		Date date2 = new Date(1995,12,16);
 		Fecha fecha = new Fecha();
+		Date date1 = new Date(1995, 12, 1);
+		Date date2 = new Date(1995, 12, 16);
 		Assert.assertSame(fecha.diasDeDiferencia(date1, date2), 15);
 
 	}
-	
+
 	@Test
 	public void diasDeDiferencia_dosFechasQueNoDanQuinceDiasDeDiferencia() {
-		Date date1 = new Date(1995,12,1);
-		Date date2 = new Date(1997,7,20);
 		Fecha fecha = new Fecha();
+		Date date1 = new Date(1995, 12, 1);
+		Date date2 = new Date(1997, 7, 20);
 		Assert.assertNotSame(fecha.diasDeDiferencia(date1, date2), 15);
 
 	}
-	
+
 	@Test
 	public void esFechaAnterior_primeraFechaEsAnteriorALaSegunda() {
-		Date date1 = new Date(2005,4,1);
-		Date date2 = new Date(2007,3,20);
 		Fecha fecha = new Fecha();
+		Date date1 = new Date(2005, 4, 1);
+		Date date2 = new Date(2007, 3, 20);
 		Assert.assertSame(fecha.esFechaAnterior(date1, date2), -1);
 	}
-	
+
 	@Test
 	public void esFechaAnterior_primeraFechaEsPosteriorALaSegunda() {
-		Date date1 = new Date(2015,2,14);
-		Date date2 = new Date(2007,8,22);
 		Fecha fecha = new Fecha();
+		Date date1 = new Date(2015, 2, 14);
+		Date date2 = new Date(2007, 8, 22);
 		Assert.assertSame(fecha.esFechaAnterior(date1, date2), 1);
 	}
-	
+
 	@Test
 	public void esFechaAnterior_primeraFechaEsIgualALaSegunda() {
-		Date date1 = new Date(2011,10,30);
-		Date date2 = new Date(2011,10,30);
 		Fecha fecha = new Fecha();
+		Date date1 = new Date(2011, 10, 30);
+		Date date2 = new Date(2011, 10, 30);
 		Assert.assertSame(fecha.esFechaAnterior(date1, date2), 0);
 	}
-	//TODO: REFACTORIZAR.
+	// TODO: REFACTORIZAR.
 
 }
