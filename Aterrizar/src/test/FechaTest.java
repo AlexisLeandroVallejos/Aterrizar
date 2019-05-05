@@ -2,6 +2,7 @@ package test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 import org.junit.Assert;
@@ -19,7 +20,7 @@ public class FechaTest {
 		fecha.convertirAFechaISO8601(stringDeFecha);
 	}
 
-	@Test(expected = ParseException.class)
+	@Test(expected = DateTimeParseException.class)
 	public void convertirAFechaISO8601_fechaQueNoEstaEnFormatoISO8601() throws ParseException {
 		String stringDeFecha = "12/03/1995";
 		Fecha fecha = new Fecha();
@@ -34,7 +35,7 @@ public class FechaTest {
 		fecha.convertirAFechaLatinoamericana(stringDeFecha);
 	}
 
-	@Test(expected = ParseException.class)
+	@Test(expected = DateTimeParseException.class)
 	public void convertirAFechaLatinoamericana_fechaQueNoEstaEnFormatoLatinoamericano() throws ParseException {
 		String stringDeFecha = "09-12-1989";
 		Fecha fecha = new Fecha();
@@ -49,7 +50,7 @@ public class FechaTest {
 		fecha.convertirAFechaNorteamericana(stringDeFecha);
 	}
 
-	@Test(expected = ParseException.class)
+	@Test(expected = DateTimeParseException.class)
 	public void convertirAFechaNorteamericana_fechaQueNoEstaEnFormatoNorteamericano() throws ParseException {
 		String stringDeFecha = "12/07/1995";
 		Fecha fecha = new Fecha();

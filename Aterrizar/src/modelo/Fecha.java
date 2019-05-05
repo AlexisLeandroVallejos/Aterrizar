@@ -3,13 +3,16 @@ package modelo;
 import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.time.format.DateTimeFormatter;
 
 public class Fecha {
-	private SimpleDateFormat formatoISO8601 = new SimpleDateFormat("yyyy-MM-dd");
-	private SimpleDateFormat formatoLatinoamericano = new SimpleDateFormat("dd/MM/yyyy");
-	private SimpleDateFormat formatoNorteamericano = new SimpleDateFormat("MM-dd-yyyy");
+	private DateTimeFormatter formatoLatinoamericano = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	private DateTimeFormatter formatoNorteamericano = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 	private ArrayList<SimpleDateFormat> formatoFlexible = new ArrayList<SimpleDateFormat>();
 
 	public ArrayList<SimpleDateFormat> getFormatoFlexible() {
@@ -25,21 +28,18 @@ public class Fecha {
 		formatoFlexible.add(formatoNuevo);
 	}
 
-	public Date convertirAFechaISO8601(String fecha) throws ParseException {
-		Date date = new Date();
-		date = formatoISO8601.parse(fecha);
+	public LocalDate convertirAFechaISO8601(String fecha) throws ParseException {
+		LocalDate date = LocalDate.parse(fecha); //parse(x) utiliza iso8601 por defecto.
 		return date;
 	}
 
-	public Date convertirAFechaLatinoamericana(String fecha) throws ParseException {
-		Date date = new Date();
-		date = formatoLatinoamericano.parse(fecha);
+	public LocalDate convertirAFechaLatinoamericana(String fecha) throws ParseException {
+		LocalDate date = LocalDate.parse(fecha, formatoLatinoamericano);
 		return date;
 	}
 
-	public Date convertirAFechaNorteamericana(String fecha) throws ParseException {
-		Date date = new Date();
-		date = formatoNorteamericano.parse(fecha);
+	public LocalDate convertirAFechaNorteamericana(String fecha) throws ParseException {
+		LocalDate date = LocalDate.parse(fecha, formatoNorteamericano);
 		return date;
 
 	}
@@ -65,6 +65,6 @@ public class Fecha {
 	public int esFechaAnterior(Date date1, Date date2) {
 		return date1.compareTo(date2);
 	}
-	// Sacando los archivos demas.
+	//TODO: Seguir Refactorizando.
 
 }
