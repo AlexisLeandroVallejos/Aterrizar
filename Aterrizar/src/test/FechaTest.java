@@ -105,6 +105,14 @@ public class FechaTest {
 		Fecha fecha = new Fecha();
 		Assert.assertSame(fecha.esFechaAnterior(date1, date2), 1);
 	}
+	
+	@Test
+	public void esFechaAnterior_primeraFechaEsIgualALaSegunda() {
+		Date date1 = new Date(2011,10,30);
+		Date date2 = new Date(2011,10,30);
+		Fecha fecha = new Fecha();
+		Assert.assertSame(fecha.esFechaAnterior(date1, date2), 0);
+	}
 	//TODO: REFACTORIZAR.
 
 }
