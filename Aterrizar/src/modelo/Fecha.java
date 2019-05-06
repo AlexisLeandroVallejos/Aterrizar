@@ -9,6 +9,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Fecha {
 	private DateTimeFormatter formatoLatinoamericano = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -57,13 +58,13 @@ public class Fecha {
 
 	}
 
-	public int diasDeDiferencia(Date date1, Date date2) {
-		long date3 = date2.getTime() - date1.getTime();
-		return (int) (date3 / (1000 * 60 * 60 * 24));
+	public long diasDeDiferencia(LocalDate dateDesde, LocalDate dateHasta) {
+		long cantidadDeDiasEntreFechas = ChronoUnit.DAYS.between(dateDesde, dateHasta);
+		return cantidadDeDiasEntreFechas;
 	}
 
-	public int esFechaAnterior(Date date1, Date date2) {
-		return date1.compareTo(date2);
+	public boolean esFechaAnterior(LocalDate dateObjetivo, LocalDate dateAComparar) {
+		return dateObjetivo.isBefore(dateAComparar);
 	}
 	//TODO: Seguir Refactorizando.
 

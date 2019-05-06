@@ -2,6 +2,7 @@ package test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
 
@@ -69,55 +70,54 @@ public class FechaTest {
 	}
 
 	@Test(expected = ParseException.class)
-	public void convertirAFechaFlexible_fechaQueNoEstaEnFormatoFlexible() throws ParseException{
+	public void convertirAFechaFlexible_fechaQueNoEstaEnFormatoFlexible() throws ParseException {
 		String stringDeFecha = "Apr-01-2002";
 		Fecha fecha = new Fecha();
 		fecha.agregarFormatoFlexible("dd/MM/yyyy");
 		fecha.convertirAFechaFlexible(stringDeFecha);
 		fecha.getFormatoFlexible().get(0).parse(stringDeFecha);
-}
+	}
 
 	@Test
 	public void diasDeDiferencia_dosFechasQueDanQuinceDiasDeDiferencia() {
 		Fecha fecha = new Fecha();
-		Date date1 = new Date(1995, 12, 1);
-		Date date2 = new Date(1995, 12, 16);
-		Assert.assertSame(fecha.diasDeDiferencia(date1, date2), 15);
+		LocalDate dateDesde = LocalDate.of(1995, 12, 1);
+		LocalDate dateHasta = LocalDate.of(1995, 12, 16);
+		Assert.assertEquals(fecha.diasDeDiferencia(dateDesde, dateHasta), 15);
 
 	}
 
 	@Test
 	public void diasDeDiferencia_dosFechasQueNoDanQuinceDiasDeDiferencia() {
 		Fecha fecha = new Fecha();
-		Date date1 = new Date(1995, 12, 1);
-		Date date2 = new Date(1997, 7, 20);
-		Assert.assertNotSame(fecha.diasDeDiferencia(date1, date2), 15);
+		LocalDate dateDesde = LocalDate.of(1995, 12, 1);
+		LocalDate dateHasta = LocalDate.of(1997, 7, 20);
+		Assert.assertNotEquals(fecha.diasDeDiferencia(dateDesde, dateHasta), 15);
 
 	}
 
 	@Test
 	public void esFechaAnterior_primeraFechaEsAnteriorALaSegunda() {
 		Fecha fecha = new Fecha();
-		Date date1 = new Date(2005, 4, 1);
-		Date date2 = new Date(2007, 3, 20);
-		Assert.assertSame(fecha.esFechaAnterior(date1, date2), -1);
+		LocalDate dateObjetivo = LocalDate.of(2005, 4, 1);
+		LocalDate dateAComparar = LocalDate.of(2007, 3, 20);
+		Assert.assertSame(fecha.esFechaAnterior(dateObjetivo, dateAComparar), true);
 	}
 
 	@Test
 	public void esFechaAnterior_primeraFechaEsPosteriorALaSegunda() {
 		Fecha fecha = new Fecha();
-		Date date1 = new Date(2015, 2, 14);
-		Date date2 = new Date(2007, 8, 22);
-		Assert.assertSame(fecha.esFechaAnterior(date1, date2), 1);
+		LocalDate dateObjetivo = LocalDate.of(2015, 2, 14);
+		LocalDate dateAComparar = LocalDate.of(2007, 8, 22);
+		Assert.assertSame(fecha.esFechaAnterior(dateObjetivo, dateAComparar), false);
 	}
 
 	@Test
 	public void esFechaAnterior_primeraFechaEsIgualALaSegunda() {
 		Fecha fecha = new Fecha();
-		Date date1 = new Date(2011, 10, 30);
-		Date date2 = new Date(2011, 10, 30);
-		Assert.assertSame(fecha.esFechaAnterior(date1, date2), 0);
+		LocalDate dateObjetivo = LocalDate.of(2011, 10, 30);
+		LocalDate dateAComparar = LocalDate.of(2011, 10, 30);
+		Assert.assertSame(fecha.esFechaAnterior(dateObjetivo, dateAComparar), false);
 	}
-	// TODO: REFACTORIZAR.
 
 }
