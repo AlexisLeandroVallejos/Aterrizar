@@ -1,0 +1,40 @@
+FechasDelAterrizar
+
+Decisiones, alternativas y motivos:
+
+Modelo utiliza la clase GestorDeFecha para resolver las consultas de conversion
+a fecha y comparacion de fechas. 
+
+Test utiliza la clase GestorDeFechaTest para testear los metodos utilizados en GestorDeFecha.
+
+En cuanto al diseño utilizado, decidi utilizar una clase que resolviera el problema en cuestion:
+manejo de fechas. No vi necesario crear mas clases debido a que el problema no involucraba mas
+entidades que las que se mencionaron en el enunciado del trabajo practico. Los tres puntos pedidos
+del trabajo practico podian ser resueltos con metodos definidos en esta clase (GestorDeFecha).
+
+En cuanto a la conversion de fechas surgieron 3 formas: 
+	*Utilizar java.util.date;
+	*Utilizar joda.time;
+	*Utilizar java.time;
+Decidi utilizar la ultima biblioteca para la conversion de fechas. 
+java.util.date; esta obsoleta y no la veia como una alternativa buena.
+joda.time; es para la version 8 de java, pero recomendaban utilizar java.time como alternativa.
+
+Ademas de java.time use DateTimeFormatter para darle a la fecha un formato establecido; ademas de
+otras bibliotecas para calcular la diferencia de dias (ChronoUnit); error en el parseo de una fecha
+(DateTimeParseException); y ArrayList coleccion para usar la FechaFlexible que manejaba diferentes formatos.
+
+En detalle, los puntos pedidos fueron faciles a excepcion del fechaFlexible. Para resolver este punto,
+decidi utilizar las funciones filter y map para resolver el problema:
+	*filter debia filtrar la coleccion para acceder a formatos compatibles con mi fecha solicitada,
+	para lograrlo necesitaba el metodo esParseable, que recibe una fecha en String y 
+	un formato DateTimeFormatter, y devuelve true si se puede parsear esa fecha con el formato; 
+	false en caso contrario. 
+	Esta fue la parte mas dificil de resolver de este punto.
+	*map aplicaba el parse.
+	*finalmente, findFirst y get necesarios para obtener el primer LocalDate que fuera valido.
+	
+Creo que esta solucion al ejercicio de manejo de fechas del aterrizar, es simple y sencilla de entender.
+Despues de completar la primera version (que usaba util.date), refactorizarla, quitarle warnings y declaracion de variables 
+claras y concretas para el codigo y los tests, es la mejor solucion que pude lograr.
+ 
