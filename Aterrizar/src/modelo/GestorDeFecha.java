@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
-public class Fecha {
+public class GestorDeFecha {
 	private DateTimeFormatter formatoLatinoamericano = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	private DateTimeFormatter formatoNorteamericano = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 	private ArrayList<DateTimeFormatter> formatoFlexible = new ArrayList<DateTimeFormatter>();
